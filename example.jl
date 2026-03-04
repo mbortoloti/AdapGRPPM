@@ -1,7 +1,7 @@
 using LinearAlgebra
 using Manifolds
 
-include("adap_rppm.jl")
+include("adap_grppm.jl")
 
 
 #include("ppmnn.jl")
@@ -41,7 +41,7 @@ maxiter = 1000
 # Initial λ
 λ0 = 1.e-4
 
-S,error,iter,λk = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ);     
+S,error,iter,λk = adap_grppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ);     
 
 println("End of adap_rppm")           
    

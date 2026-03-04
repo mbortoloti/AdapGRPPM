@@ -20,7 +20,7 @@ function build_grad_fk(M :: mf.AbstractManifold, Y :: Matrix{Float64}, Zk :: Mat
 
 end
 ###########################################################################################################
-function adap_rppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Function, grad_g1 :: Function, 
+function adap_grppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Function, grad_g1 :: Function, 
         g2 :: Function, grad_g2 :: Function, h :: Function, grad_h :: Function, λ0 :: Float64,
         maxiter :: Int,ϵ :: Float64;return_state = false)
 
@@ -60,8 +60,6 @@ function adap_rppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Functi
             try
                 # Solving subproblem
                 Yk = Manopt.trust_regions(M, fk, grad_fk, Zk;
-                     stepsize=ArmijoLinesearch(M;contraction_factor=0.5,initial_stepsize=1.0,
-                     stop_when_stepsize_less=1.e-16),
                      #debug=[:Iteration, :Cost, "\n",:Stop],
                      stopping_criterion=StopAfterIteration(5000)|StopWhenChangeLess(M,1e-12)
                      );
@@ -90,9 +88,9 @@ function adap_rppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Functi
                     λk = 2.0 * λk
                 end
              #end
-          catch
-            λk = 2.0 * λk
-          end
+            catch
+                λk = 2.0 * λk
+            end
 
         end
 
