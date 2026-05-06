@@ -68,7 +68,7 @@ $$
 
 where $g_1(X)=\log(\det(X))^4$, $g_2(X)=0$, and $h(X)=\log(\det(X))^2$.
 
-**Required Julia Packages**
+#### Required Julia Packages
 
 The adap-GRPPM algorithm requires the following Julia packages:
 
