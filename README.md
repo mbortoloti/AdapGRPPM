@@ -42,6 +42,7 @@ where $g_1(X) = \texttt{tr}(D^4)+\mu \|X\|_1$, $g_2(X) = \texttt{tr}( X^\top A^\
 The code used in this example is available [here](https://github.com/mbortoloti/AdapGRPPM).
 
 **6.2.2 Sensitivity to the Parameter $\lambda_0$**
+
 $$
 \min_{P} f_2(X):=g1(X)+g_2(X)-h(X),
 $$
@@ -50,6 +51,7 @@ where $g_1(X)= \alpha \texttt{tr}(X)$, $g_2(X) = \texttt{tr}(X^{-1}A) + \log(\de
 
 
 **6.2.3 Scalability with Manifold Dimension**
+
 $$
 \min_{P} f_3(X) := g_1(X)+g_2(X)-h(X),
 $$
@@ -57,6 +59,7 @@ $$
 where $g_1(X)=\frac{1}{12} \log(\det(X))^2$, $g_2(X)=\log(\det(X))^3$, and $h(X)=\log(\det(X))$.
 
 **6.2.4 Comparison with Baseline Methods**
+
 $$
 \min_P f_4(X) := g_1(X)+g_2(X)-h(X),
 $$
