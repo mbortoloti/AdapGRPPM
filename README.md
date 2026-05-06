@@ -39,7 +39,7 @@ $$
 
 where $g_1(X) = \texttt{tr}(D^4)+\mu \|X\|_1$, $g_2(X) = \texttt{tr}( X^\top A^\top AX)^2$, and $h(X) = 2 \texttt{tr}(D^2X^\top A^\top AX)$.
 
-The code used in this example is available [here](https://github.com/mbortoloti/AdapGRPPM/Example_6.2.1).
+The code used in this example is available [here](https://github.com/mbortoloti/AdapGRPPM/tree/main/Example_6.2.1).
 
 **6.2.2 Sensitivity to the Parameter $\lambda_0$**
 
