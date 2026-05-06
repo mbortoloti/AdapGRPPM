@@ -1,8 +1,8 @@
 
 
-**An adaptative proximal point method for nonsmooth and nonconvex optimization on Hadamard manifolds**
+# An adaptative proximal point method for nonsmooth and nonconvex optimization on Hadamard manifolds
 
-Vitaliano Amaral, Marcio Bortoloti, Jurandir O. Lopes, Gilson Silva
+## Vitaliano Amaral, Marcio Bortoloti, Jurandir O. Lopes, Gilson Silva
 
 
 **Abstract** This paper addresses a class of nonsmooth and nonconvex optimization problems defined on complete Riemannian manifolds. The objective function has a composite structure, combining convex, differentiable, and lower semicontinuous terms, thereby generalizing the classical framework of difference-of-convex programming. Motivated by recent advances in proximal point methods in both Euclidean and Riemannian settings, we propose two
