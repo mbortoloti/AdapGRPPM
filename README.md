@@ -10,6 +10,8 @@ variants of the proximal point method for solving this class of problems. The fi
 
 To run the adap-GRPPM algorithm, you must provide the functions $g_1$, $g_2$, and $h$ that compose the objective function, along with their corresponding Euclidean gradients (or subgradients).
 
+The numerical examples presented in the manuscript are given below.
+
 <!--  
 
 Please see the file [example.jl](https://github.com/mbortoloti/AdapRPPM/blob/main/example.jl) for a functional code example. It solves the following optimization problem:
