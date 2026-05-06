@@ -10,6 +10,8 @@ variants of the proximal point method for solving this class of problems. The fi
 
 To run the adap-RPPM algorithm, you must provide the functions $g_1$, $g_2$, and $h$ that compose the objective function, along with their corresponding Euclidean gradients (or subgradients).
 
+<!--  
+
 Please see the file [example.jl](https://github.com/mbortoloti/AdapRPPM/blob/main/example.jl) for a functional code example. It solves the following optimization problem:
 
 Minimize
@@ -24,9 +26,40 @@ where:
 * $g_2(X) = \left( \log(\det(X)) \right)^2$;
 
 * $h(X) = \log(\det(X))$.
+-->
 
-Required Julia Packages
-The adap-RPPM algorithm requires the following Julia packages:
+
+**6.2 Numerical Examples**
+
+**6.2.1 Sparse Orthogonal Basis Recovery on the $OB(p,n)$ Manifold**
+
+$$
+\min_{X \in OB(p,n)} f_1(X) := g_1(X)+g_2(X)-h(X),
+$$
+where $g_1(X) = \texttt{tr}(D^4)+\mu \|X\|_1$, $g_2(X) = \texttt{tr}( X^\top A^\top AX)^2$, and $h(X) = 2 \texttt{tr}(D^2X^\top A^\top AX)$.
+
+**6.2.2 Sensitivity to the Parameter $\lambda_0$**
+$$
+\min_{P} f_2(X):=g1(X)+g_2(X)-h(X),
+$$
+where $g_1(X)= \alpha \texttt{tr}(X)$, $g_2(X) = \texttt{tr}(X^{-1}A) + \log(\det(X))-n$, and $h(X)=\texttt{tr}(BX)$.
+
+
+**6.2.3 Scalability with Manifold Dimension**
+$$
+\min_{P} f_3(X) := g_1(X)+g_2(X)-h(X),
+$$
+where $g_1(X)=\frac{1}{12} \log(\det(X))^2$, $g_2(X)=\log(\det(X))^3$, and $h(X)=\log(\det(X))$.
+
+**6.2.4 Comparison with Baseline Methods**
+$$
+\min_P f_4(X) := g_1(X)+g_2(X)-h(X),
+$$
+where $g_1(X)=\log(\det(X))^4$, $g_2(X)=0$, and $h(X)=\log(\det(X))^2$.
+
+**Required Julia Packages**
+
+The adap-GRPPM algorithm requires the following Julia packages:
 
 * [Manifolds.jl](https://juliamanifolds.github.io/Manifolds.jl/stable/)
 
