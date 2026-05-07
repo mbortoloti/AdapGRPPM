@@ -1,3 +1,6 @@
+#
+#  Code for Example 6.2.1
+#
 using LinearAlgebra, Manifolds, Random
 using Plots,LaTeXStrings
 
