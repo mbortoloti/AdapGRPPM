@@ -9,7 +9,7 @@ using Random
 using LaTeXStrings
 #using DelimitedFiles
 
-include("adap_rppm.jl")
+include("../../solvers/adap_rppm_trm.jl")
 #include("ppmnn.jl")
 
 # Put here the experiment identification
