@@ -45,7 +45,7 @@ for n in dim
     g1(_,X) = α * la.tr(X)
     grad_g1(_,X) = α * In
 
-    μ = 1.e-3
+    #μ = 2.0
     #A = 3.0 * In
     A = la.Diagonal([i for i in 1:n])
     g2(_,X) = la.tr(inv(X)*A)+la.logdet(X) - n
@@ -54,13 +54,11 @@ for n in dim
 
     #C = rand(seed,n,n)
     #Q,_ = la.qr(C)
-    #v = 1.e-3 * [i for i in 1:n]
-    #C = la.Diagonal(v) 
-    
-    B =  μ * A
+    v = 1.e-3 * [i for i in 1:n]
+    C = la.Diagonal(v) 
 
-    h(_,X) = la.tr(B * X)
-    ∂h(_,X) = B
+    h(_,X) = la.tr(C * X)
+    ∂h(_,X) = C
 
 
     g(M,X) = g1(M,X) + g2(M,X)
