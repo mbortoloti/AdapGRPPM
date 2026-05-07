@@ -41,7 +41,7 @@ global ntest = 0
 
 #for n in dim
 
-    n = 50
+    n = 10
 
     In = Matrix{Float64}(la.I,n,n)
 
