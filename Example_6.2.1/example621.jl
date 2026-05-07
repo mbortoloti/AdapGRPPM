@@ -1,8 +1,8 @@
 using LinearAlgebra, Manifolds, Random
 using Plots,LaTeXStrings
 
-include("rpg.jl")
-include("adap_rppm.jl")
+include("../solvers/rpg.jl")
+include("../solvers/adap_rppm.jl")
 
 
 seed = MersenneTwister(1234)
