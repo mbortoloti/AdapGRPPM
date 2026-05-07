@@ -49,7 +49,8 @@ global ntest = 0
     g1(_,X) = α * la.tr(X)
     grad_g1(_,X) = α * In
 
-    μ = 1.e-3
+ #   μ = 1.e-3
+    μ = 2.0
     #A = 3.0 * In
     A = la.Diagonal([i for i in 1:n])
     g2(_,X) = la.tr(inv(X)*A)+la.logdet(X) - n
