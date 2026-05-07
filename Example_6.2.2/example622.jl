@@ -21,9 +21,7 @@ NAME_STRING = "EX01_"
 #Δn = parse(Int64,ARGS[3])
 #nguess = parse(Int64,ARGS[4])
 #ExpId = ARGS[5]
-
-ExpId = "TESTE"
-
+ExpId = "CostAnalysis"
 NAME_STRING = NAME_STRING * ExpId
 
 ##################################################################################################
@@ -41,7 +39,7 @@ global ntest = 0
 
 #for n in dim
 
-    n = 50
+n = 50
 
     In = Matrix{Float64}(la.I,n,n)
 
@@ -49,20 +47,19 @@ global ntest = 0
     g1(_,X) = α * la.tr(X)
     grad_g1(_,X) = α * In
 
-     μ = 1.e-3
-    #μ = 2.0
+    μ = 1.e-3
     #A = 3.0 * In
     A = la.Diagonal([i for i in 1:n])
     g2(_,X) = la.tr(inv(X)*A)+la.logdet(X) - n
-    #In = Matrix{Float64}(la.I,n,n)
+    In = Matrix{Float64}(la.I,n,n)
     grad_g2(_,X) = -inv(X) * (A * inv(X) - In)
 
     #C = rand(seed,n,n)
     #Q,_ = la.qr(C)
     #v = 1.e-3 * [i for i in 1:n]
     #C = la.Diagonal(v) 
-
-    B = μ * A
+    
+    B =  μ * A
 
     h(_,X) = la.tr(B * X)
     ∂h(_,X) = B
@@ -70,9 +67,9 @@ global ntest = 0
 
     g(M,X) = g1(M,X) + g2(M,X)
     f(M,X) = g(M,X) - h(M,X)
-    #grad_g(M,X) = grad_g1(M,X) + grad_g2(M,X)
+    grad_g(M,X) = grad_g1(M,X) + grad_g2(M,X)
 
-
+λ = [1.e-4,1.e-3,1.e-2,1.e-1,1.e+0]
     #for _ in 1:nguess
        
             global ntest += 1
@@ -89,27 +86,27 @@ global ntest = 0
             ϵ = 1.e-6
             maxiter = 1000
             
-            λ0 = 1.e-4
+            λ0 = λ[1]
             S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
             return_state=true);
             push!(cost_adap,S)
 
-            λ0 = 1.e-3
+            λ0 = λ[2]
             S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
             return_state=true);
             push!(cost_adap,S)
 
-            λ0 = 1.e-2
+            λ0 =λ[3] 
             S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
             return_state=true);
             push!(cost_adap,S)
 
-            λ0 = 1.e-1
+            λ0 = λ[4]
             S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
             return_state=true);
             push!(cost_adap,S)
 
-            λ0 = 1.0
+            λ0 =λ[5] 
             S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
             return_state=true);
             push!(cost_adap,S)
@@ -163,11 +160,11 @@ global ntest = 0
     #end    
 #end
 
-open(NAME_STRING * "COST_ADAP.dat","w") do io
-    for v in cost_adap
-        println(io,join(v,","))
-    end
-end
+#open(NAME_STRING * "COST_ADAP.dat","w") do io
+#    for v in cost_adap
+#        println(io,join(v,","))
+#    end
+#end
 
 
 #open(NAME_STRING * "COST_DCA.dat","w") do io
@@ -181,4 +178,30 @@ end
 #        println(io,join(v,","))
 #    end
 #end
+plot([],[],label="",yticks=([1.e-14,1.e-12,1.e-10,1.e-8,1.e-6,1.e-4,1.e-2,1.e+0]),ylabel=L"\log\|f(x^k)-f(x^*)\|",xlabel="Iteration",guidefont= font(12),tickfont = font(12),legendfont = font(12));
+for k in 1:size(λ,1)
+    #In = Matrix{Float64}(I,n,n)
+   # v = Float64([i for i in 1:n])
+    #A = la.Diagonal(v)
+    #C = μ * A 
+    function xs(i)
+        mi = α - μ * i
+        return (-1 + sqrt(1 + 4 * mi * i))/(2mi)
+    end
+    Xs = la.Diagonal([xs(i) for i in 1:n])
+    #f(X) = α * tr(X) + tr(inv(X)*A) + logdet(X) -n  - tr(C*X)
+    f_Xs = f(M,Xs)
+  #it = size(cost_dcppa[k],1)
+  #iters = 1:1:it
+  #plot!(iters,abs.(cost_dcppa[k] .- f_Xs),yscale=:log10,marker=:dtriangle,lw=2,label="DCPPA")
+  #it = size(cost_dca[k],1)
+  #iters = 1:1:it
+  #plot!(iters,abs.(cost_dca[k] .- f_Xs),yscale=:log10,marker=:diamond,lw=2,label="DCA")
+  it = size(cost_adap[k],1)
+  iters = 1:1:it
+  l = λ[k]
+  label_lambda = @sprintf("%.e",l)
+  plot!(iters,abs.(cost_adap[k] .- f_Xs),yscale=:log10,lw=2,label=L"\lambda_0 = "*"$(label_lambda)")
+end
 
+savefig("iter_cost.png")
