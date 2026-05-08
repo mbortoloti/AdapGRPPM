@@ -5,117 +5,209 @@ import LinearAlgebra as la
 using Printf
 using Plots
 using Random
-#using BenchmarkProfiles
+using BenchmarkTools
 using LaTeXStrings
 using DelimitedFiles
+using Statistics
 
 include("../solvers/adap_rppm_trm.jl")
-#include("ppmnn.jl")
 
-NAME_STRING = "EX03_"
+################################################################################
+# Configuration
+################################################################################
 
-# Set dimensions and number of initial guesses (for each dimension) for analysis
-n_0 = 10
-n_f = 100
-Δn = 5
-nguess = 1
 NAME_STRING = "example623"
-# Echo file
-#file = open(NAME_STRING * "_ECHO.dat","w")
 
-#################################################################################################
-# Warmup
-# (only for loading required lybrary) 
-#
-#################################################################################################
+n_0   = 10
+n_f   = 100
+Δn    = 5
+nguess = 1
 
-#wg1(M,X) = la.logdet(X)^4
-#wgrad_g1(M,X) = 4.0*la.logdet(X)^3 * inv(X)
-#
-#wg2(M,X) = 0.0
-#wgrad_g2(M,X) = zeros(2,2)
-#
-#wh(M,X) = la.logdet(X)^2
-#w∂h(M,X) = 2.0*la.logdet(X) * inv(X)
-##w∂H(M,X) = w∂h(X)
-#
-#wg(M,X) = wg1(M,X) + wg2(M,X)
-#wf(M,X) = wg(M,X) - wh(M,X)
-#wgrad_g(M,X) = wgrad_g1(M,X) + wgrad_g2(M,X)
-#
-#
-#M = mf.SymmetricPositiveDefinite(2)
-#X0 = rand(M)
-#λk(n) = sqrt(n)
-#adap_rppm(M,X0,wg1,wgrad_g1,wg2,wgrad_g2,wh,w∂h,1.e-2,5,1.e-4); 
+ϵ       = 1.e-8
+maxiter = 1000
+λ0      = 1.e-4
 
+################################################################################
+# Main experiment
+################################################################################
 
-dim = [i for i in n_0:Δn:n_f];
+function run_experiment()
 
-seed = MersenneTwister(1234)
+    dim = collect(n_0:Δn:n_f)
 
-global T = Matrix{Float64}(undef,size(dim,1)*nguess,3)
-global ntest = 0
+    seed = MersenneTwister(1234)
 
+    # columns:
+    # 1 -> n
+    # 2 -> manifold dimension
+    # 3 -> runtime
+    # 4 -> iterations
+    # 5 -> memory
+    # 6 -> allocations
+    T = Matrix{Float64}(undef, length(dim)*nguess, 6)
 
-for n in dim
+    ntest = 0
 
-    g1(_,X) = la.logdet(X)^4 / 12.0
-    grad_g1(_,X) = la.logdet(X)^3 * inv(X) / 3.0
+    for n in dim
 
+        ########################################################################
+        # Problem definition
+        ########################################################################
 
-    g2(_,X) = la.logdet(X)^2
-grad_g2(_,X) = 2.0 * la.logdet(X) * inv(X)
+        g1(_,X) = la.logdet(X)^4 / 12.0
+        grad_g1(_,X) = la.logdet(X)^3 * inv(X) / 3.0
 
-h(M,X) = la.logdet(X)
-∂h(M,X) = la.inv(X)
+        g2(_,X) = la.logdet(X)^2
+        grad_g2(_,X) = 2.0 * la.logdet(X) * inv(X)
 
+        h(_,X) = la.logdet(X)
+        ∂h(_,X) = inv(X)
 
-g(M,X) = g1(M,X) + g2(M,X)
-f(M,X) = g(M,X) - h(M,X)
-grad_g(M,X) = grad_g1(M,X) + grad_g2(M,X)
+        g(M,X) = g1(M,X) + g2(M,X)
+        f(M,X) = g(M,X) - h(M,X)
 
+        ########################################################################
+        # Experiments
+        ########################################################################
 
-for _ in 1:nguess
-       
-    global ntest += 1
-    
-    # Set Manifold
-    global M = mf.SymmetricPositiveDefinite(n)
+        for k in 1:nguess
 
-    # Set initial guess
-    global X0 = log(n)*Matrix{Float64}(la.I,n,n)
-    ϵ = 1.e-8
-    maxiter = 1000
-    ########################################################################
-    #                      PPMNN method analysis
-    ########################################################################
-    try
-        λ0 = 1.e-4
-        local t0 = time();
-        S,error,iter,λk = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ);                
-        local et = time() - t0;
-        T[ntest,3] = et
-        @printf(     "adap-RPPM ::%5d %15.10e %15.10e %+15.10e %8.5e %5d\n",n,et,la.det(S),f(M,S),λk,iter);
- #       @printf(file,"adap-RPPM ::%5d %15.10e %15.10e %+15.10e %8.5e %5d\n",n,et,la.det(S),f(M,S),λk,iter);
-        #println("$S")
-    catch error
-        T[ntest,3] = Inf
-        @printf(     "adap-RPPM ::%5d %15.10e\n",n,T[ntest,3]);
-        println("$error")
+            ntest += 1
+
+            # Manifold
+            M = mf.SymmetricPositiveDefinite(n)
+
+            # Initial point
+            X0 = log(n) * Matrix{Float64}(la.I, n, n)
+
+            ####################################################################
+            # Warmup (JIT compilation)
+            ####################################################################
+
+            try
+
+                S,error,iter,λk = adap_rppm(
+                    M,
+                    X0,
+                    g1,
+                    grad_g1,
+                    g2,
+                    grad_g2,
+                    h,
+                    ∂h,
+                    λ0,
+                    maxiter,
+                    ϵ
+                )
+
+                ################################################################
+                # Benchmark
+                ################################################################
+
+                bench = @benchmark adap_rppm(
+                    $M,
+                    copy($X0),
+                    $g1,
+                    $grad_g1,
+                    $g2,
+                    $grad_g2,
+                    $h,
+                    $∂h,
+                    $λ0,
+                    $maxiter,
+                    $ϵ
+                ) samples=20 evals=1
+
+                # runtime in seconds
+                et = median(bench.times) / 1e9
+
+                # memory and allocations
+                mem    = minimum(bench.memory)
+                allocs = minimum(bench.allocs)
+
+                ################################################################
+                # Save results
+                ################################################################
+
+                mdim = n * (n + 1.0) / 2.0
+
+                T[ntest,1] = n
+                T[ntest,2] = mdim
+                T[ntest,3] = et
+                T[ntest,4] = iter
+                T[ntest,5] = mem
+                T[ntest,6] = allocs
+
+                ################################################################
+                # Print
+                ################################################################
+
+                @printf(
+                    "adap-RPPM :: n=%5d time=%12.6e det=%12.6e f=%+12.6e λ=%10.4e iter=%5d mem=%10.0f alloc=%10.0f\n",
+                    n,
+                    et,
+                    la.det(S),
+                    f(M,S),
+                    λk,
+                    iter,
+                    mem,
+                    allocs
+                )
+
+            catch err
+
+                T[ntest,1] = n
+                T[ntest,2] = n * (n + 1.0) / 2.0
+                T[ntest,3] = Inf
+                T[ntest,4] = Inf
+                T[ntest,5] = Inf
+                T[ntest,6] = Inf
+
+                @printf(
+                    "adap-RPPM :: n=%5d FAILED\n",
+                    n
+                )
+
+                println(err)
+
+            end
+
+        end
     end
-        
-    ########################################################################
-    #                      End PPMNN analysis
-    ########################################################################
 
-end    
+    return T
 end
 
-# Generate and write plot of n x time 
-mdim = dim .* ( dim .+ 1.0) ./ 2.0
-plot(mdim,T[:,3],label="Adap-RPPM",lw=2,color=:blue)
-xlabel!("Manifold Dimension "*L"d = " * "dim " * L"\mathbb{P}^n_{++}")
-ylabel!("run time (sec.)")
+################################################################################
+# Run
+################################################################################
 
-savefig(NAME_STRING)
+T = run_experiment()
+
+################################################################################
+# Plot
+################################################################################
+
+mdim = T[:,2]
+
+p1 = plot(
+    mdim,
+    T[:,3],
+    lw = 2,
+    marker = :circle,
+    label = "Adap-RPPM",
+    xlabel = "Manifold Dimension " * L"d = \mathrm{dim}\,\mathbb{P}_{++}^{n}",
+    ylabel = "runtime (sec.)",
+    title = "Runtime Analysis",
+    legend = :topleft
+)
+
+savefig(p1, NAME_STRING * "_runtime.png")
+
+################################################################################
+# Save data
+################################################################################
+
+writedlm(NAME_STRING * "_runtime.dat", T)
+
+println("\nExperiment finished.\n")
