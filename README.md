@@ -53,6 +53,8 @@ $$
 
 where $g_1(X)= \alpha \texttt{tr}(X)$, $g_2(X) = \texttt{tr}(X^{-1}A) + \log(\det(X))-n$, and $h(X)=\texttt{tr}(BX)$.
 
+The codes used in this example are available [here](https://github.com/mbortoloti/AdapGRPPM/tree/main/Example_6.2.2). Please refer to the manuscript for further details. 
+
 
 ### 6.2.3 Scalability with Manifold Dimension
 
