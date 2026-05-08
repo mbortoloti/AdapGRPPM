@@ -29,25 +29,25 @@ NAME_STRING = "example623"
 #
 #################################################################################################
 
-wg1(M,X) = la.logdet(X)^4
-wgrad_g1(M,X) = 4.0*la.logdet(X)^3 * inv(X)
-
-wg2(M,X) = 0.0
-wgrad_g2(M,X) = zeros(2,2)
-
-wh(M,X) = la.logdet(X)^2
-w∂h(M,X) = 2.0*la.logdet(X) * inv(X)
-#w∂H(M,X) = w∂h(X)
-
-wg(M,X) = wg1(M,X) + wg2(M,X)
-wf(M,X) = wg(M,X) - wh(M,X)
-wgrad_g(M,X) = wgrad_g1(M,X) + wgrad_g2(M,X)
-
-
-M = mf.SymmetricPositiveDefinite(2)
-X0 = rand(M)
+#wg1(M,X) = la.logdet(X)^4
+#wgrad_g1(M,X) = 4.0*la.logdet(X)^3 * inv(X)
+#
+#wg2(M,X) = 0.0
+#wgrad_g2(M,X) = zeros(2,2)
+#
+#wh(M,X) = la.logdet(X)^2
+#w∂h(M,X) = 2.0*la.logdet(X) * inv(X)
+##w∂H(M,X) = w∂h(X)
+#
+#wg(M,X) = wg1(M,X) + wg2(M,X)
+#wf(M,X) = wg(M,X) - wh(M,X)
+#wgrad_g(M,X) = wgrad_g1(M,X) + wgrad_g2(M,X)
+#
+#
+#M = mf.SymmetricPositiveDefinite(2)
+#X0 = rand(M)
 #λk(n) = sqrt(n)
-adap_rppm(M,X0,wg1,wgrad_g1,wg2,wgrad_g2,wh,w∂h,1.e-2,5,1.e-4); 
+#adap_rppm(M,X0,wg1,wgrad_g1,wg2,wgrad_g2,wh,w∂h,1.e-2,5,1.e-4); 
 
 
 dim = [i for i in n_0:Δn:n_f];
