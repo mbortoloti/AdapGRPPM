@@ -39,12 +39,15 @@ The codes used in this example are available [here](https://github.com/mbortolot
 
 
 ### 6.2.3 Scalability with Manifold Dimension
-
+Next example is
 $$
 \min_{P} f_3(X) := g_1(X)+g_2(X)-h(X),
 $$
 
 where $g_1(X)=\frac{1}{12} \log(\det(X))^2$, $g_2(X)=\log(\det(X))^3$, and $h(X)=\log(\det(X))$.
+
+The codes used in this example are available [here](https://github.com/mbortoloti/AdapGRPPM/tree/main/Example_6.2.3). Please refer to the manuscript for further details. 
+
 
 ### 6.2.4 Comparison with Baseline Methods
 
