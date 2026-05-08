@@ -46,6 +46,7 @@ where $g_1(X) = \texttt{tr}(D^4)+\mu \|X\|_1$, $g_2(X) = \texttt{tr}( X^\top A^\
 The codes used in this example are available [here](https://github.com/mbortoloti/AdapGRPPM/tree/main/Example_6.2.1). Please refer to the manuscript for further details. 
 
 ### 6.2.2 Sensitivity to the Parameter $\lambda_0$
+The second example is 
 
 $$
 \min_{P} f_2(X):=g1(X)+g_2(X)-h(X),
