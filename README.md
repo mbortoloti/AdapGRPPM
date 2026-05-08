@@ -12,25 +12,6 @@ To run the adap-GRPPM algorithm, you must provide the functions $g_1$, $g_2$, an
 
 The numerical examples presented in the manuscript are given below.
 
-<!--  
-
-Please see the file [example.jl](https://github.com/mbortoloti/AdapRPPM/blob/main/example.jl) for a functional code example. It solves the following optimization problem:
-
-Minimize
-$f(X) = g_1(X) + g_2(X) - h(X)$
-
-where:
-
-* The function $f$ is defined on the manifold of symmetric positive definite matrices $\mathbb{S}_{++}^n$;
-
-* $g_1(X) = \dfrac{1}{12} \left( \log(\det(X)) \right)^4$;
-
-* $g_2(X) = \left( \log(\det(X)) \right)^2$;
-
-* $h(X) = \log(\det(X))$.
--->
-
-
 
 
 ### 6.2.1 Sparse Orthogonal Basis Recovery on the $OB(p,n)$ Manifold
@@ -49,7 +30,7 @@ The codes used in this example are available [here](https://github.com/mbortolot
 The second example is 
 
 $$
-\min_{P} f_2(X):=g1(X)+g_2(X)-h(X),
+\min_{P} f_2(X):=g_1(X)+g_2(X)-h(X),
 $$
 
 where $g_1(X)= \alpha \texttt{tr}(X)$, $g_2(X) = \texttt{tr}(X^{-1}A) + \log(\det(X))-n$, and $h(X)=\texttt{tr}(BX)$.
