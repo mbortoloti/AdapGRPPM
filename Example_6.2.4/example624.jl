@@ -123,6 +123,9 @@ for _ in 1:nguess
     try
         λ0 = 1.e-4
 
+        println("AdapGRPPM n: $n")
+
+
         bench = @benchmark adap_rppm(
             $M,$X0,
             $g1,$grad_g1,
@@ -177,7 +180,7 @@ for _ in 1:nguess
     ########################################################################
 
     try
-
+ println("DCA  n: $n")
         bench = @benchmark Manopt.difference_of_convex_algorithm(
             $M,$f,$g,$∂h,$X0;
             grad_g=$grad_g,
@@ -228,7 +231,7 @@ for _ in 1:nguess
     #######################################################################
 
     try
-
+ println("DCPPA n: $n")
         λ(_) = 1/(2.0*n)
 
         bench = @benchmark Manopt.difference_of_convex_proximal_point(
