@@ -13,17 +13,17 @@ using BenchmarkTools
 include("../solvers/adap_rppm_trm.jl")
 #include("ppmnn.jl")
 
-NAME_STRING = "EX02_"
+#NAME_STRING = "EX02_"
 
 # Set dimensions and number of initial guesses (for each dimension) for analysis
 #n_0 = parse(Int64,ARGS[1])
 n_0 = 5
 #n_f = parse(Int64,ARGS[2])
-n_f = 5
+n_f = 20
 #Δn = parse(Int64,ARGS[3])
 Δn = 1
 #nguess = parse(Int64,ARGS[4])
-nguess = 1
+nguess = 10
 #NAME_STRING = NAME_STRING * ARGS[5]
 NAME_STRING = "teste"
 # Echo file
@@ -307,7 +307,7 @@ performance_profile(
     xlabel="Performance ratio: CPU time"
 )
 
-savefig(NAME_STRING * "ADAP_RPPM" * "PP")
+savefig("example624")
 
 ############################################################################
 # Dimension x Time plot
