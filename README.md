@@ -54,7 +54,7 @@ The codes used in this example are available [here](https://github.com/mbortolot
 The last example is
 
 $$
-\min_P_{X \in P^n_{++}} f_4(X) := g_1(X)+g_2(X)-h(X),
+\min_{X \in P^n_{++}} f_4(X) := g_1(X)+g_2(X)-h(X),
 $$
 
 where $g_1(X)=\log(\det(X))^4$, $g_2(X)=0$, and $h(X)=\log(\det(X))^2$.
