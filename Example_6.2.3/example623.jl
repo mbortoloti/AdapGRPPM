@@ -143,10 +143,9 @@ function run_experiment()
                 ################################################################
 
                 @printf(
-                    "adap-GRPPM :: n=%5d time=%12.6e det=%12.6e f=%+12.6e λ=%10.4e iter=%5d mem=%10.0f alloc=%10.0f\n",
+                    "adap-GR-PPM :: n=%5d time=%12.6e f=%+12.6e λ=%10.4e iter=%5d mem=%10.0f alloc=%10.0f\n",
                     n,
                     et,
-                    la.det(S),
                     f(M,S),
                     λk,
                     iter,
@@ -164,7 +163,7 @@ function run_experiment()
                 T[ntest,6] = Inf
 
                 @printf(
-                    "adap-GRPPM :: n=%5d FAILED\n",
+                    "adap-GR-PPM :: n=%5d FAILED\n",
                     n
                 )
 
