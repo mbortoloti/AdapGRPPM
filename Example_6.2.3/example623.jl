@@ -143,7 +143,7 @@ function run_experiment()
                 ################################################################
 
                 @printf(
-                    "adap-RPPM :: n=%5d time=%12.6e det=%12.6e f=%+12.6e λ=%10.4e iter=%5d mem=%10.0f alloc=%10.0f\n",
+                    "adap-GRPPM :: n=%5d time=%12.6e det=%12.6e f=%+12.6e λ=%10.4e iter=%5d mem=%10.0f alloc=%10.0f\n",
                     n,
                     et,
                     la.det(S),
@@ -164,7 +164,7 @@ function run_experiment()
                 T[ntest,6] = Inf
 
                 @printf(
-                    "adap-RPPM :: n=%5d FAILED\n",
+                    "adap-GRPPM :: n=%5d FAILED\n",
                     n
                 )
 
@@ -195,7 +195,7 @@ p1 = plot(
     T[:,3],
     lw = 2,
     marker = :circle,
-    label = "Adap-RPPM",
+    label = "Adap-GR-PPM",
     xlabel = "Manifold Dimension " * L"d = \mathrm{dim}\,\mathbb{P}_{++}^{n}",
     ylabel = "runtime (sec.)",
     title = "Runtime Analysis",

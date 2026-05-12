@@ -123,7 +123,7 @@ for _ in 1:nguess
     try
         λ0 = 1.e-4
 
-        println("AdapGRPPM n: $n")
+        println("Adap-GR-PPM n: $n")
 
 
         bench = @benchmark adap_rppm(
@@ -303,7 +303,7 @@ ENV["GKSwstype"] = "100"
 performance_profile(
     PlotsBackend(),
     T,
-    ["DCPPA","DCA","Adap-RPPM"],
+    ["DCPPA","DCA","Adap-GR-PPM"],
     leg=:bottomright,
     l=2,
     ylabel="Solved Problems (%)",
