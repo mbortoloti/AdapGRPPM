@@ -62,6 +62,8 @@ where $g_1(X)=\log(\det(X))^4$, $g_2(X)=0$, and $h(X)=\log(\det(X))^2$.
 
 The codes used in this example are available [here](https://github.com/mbortoloti/AdapGRPPM/tree/main/Example_6.2.4). Please refer to the manuscript for further details. 
 
+The DCA and DCPPA methods, available in the [Manopt.jl](https://manoptjl.org/stable/) package, were used exclusively for comparison purposes in the execution time experiments.
+
 For the timing measurements, we used the [BenchmarkTools.jl](https://juliaci.github.io/BenchmarkTools.jl/stable/) package, which provides reliable and accurate benchmarking utilities for Julia implementations.
 
 #### Required Julia Packages for Adap-GR-PPM
@@ -71,8 +73,6 @@ The adap-GR-PPM algorithm requires the following Julia packages:
 * [Manifolds.jl](https://juliamanifolds.github.io/Manifolds.jl/stable/)
 
 * [ManifoldDiff.jl](https://juliamanifolds.github.io/ManifoldDiff.jl/stable/)
-
-* [Manopt.jl](https://manoptjl.org/stable/)
 
 * [LinearAlgebra.jl](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/) (standard library)
 
