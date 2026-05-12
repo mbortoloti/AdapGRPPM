@@ -40,6 +40,7 @@ The codes used in this example are available [here](https://github.com/mbortolot
 
 ### 6.2.3 Scalability with Manifold Dimension
 Next example is
+
 $$
 \min_{X \in P^n_{++}} f_3(X) := g_1(X)+g_2(X)-h(X),
 $$
@@ -51,6 +52,7 @@ The codes used in this example are available [here](https://github.com/mbortolot
 
 ### 6.2.4 Comparison with Baseline Methods
 The last example is
+
 $$
 \min_P_{X \in P^n_{++}} f_4(X) := g_1(X)+g_2(X)-h(X),
 $$
