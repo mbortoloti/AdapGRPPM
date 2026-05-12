@@ -49,6 +49,7 @@ where $g_1(X)=\frac{1}{12} \log(\det(X))^2$, $g_2(X)=\log(\det(X))^3$, and $h(X)
 
 The codes used in this example are available [here](https://github.com/mbortoloti/AdapGRPPM/tree/main/Example_6.2.3). Please refer to the manuscript for further details. 
 
+For the timing measurements, we used the [BenchmarkTools.jl](https://juliaci.github.io/BenchmarkTools.jl/stable/) package, which provides reliable and accurate benchmarking utilities for Julia implementations.
 
 ### 6.2.4 Comparison with Baseline Methods
 The last example is
@@ -61,8 +62,9 @@ where $g_1(X)=\log(\det(X))^4$, $g_2(X)=0$, and $h(X)=\log(\det(X))^2$.
 
 The codes used in this example are available [here](https://github.com/mbortoloti/AdapGRPPM/tree/main/Example_6.2.4). Please refer to the manuscript for further details. 
 
+For the timing measurements, we used the [BenchmarkTools.jl](https://juliaci.github.io/BenchmarkTools.jl/stable/) package, which provides reliable and accurate benchmarking utilities for Julia implementations.
 
-#### Required Julia Packages
+#### Required Julia Packages for Adap-GR-PPM
 
 The adap-GR-PPM algorithm requires the following Julia packages:
 
