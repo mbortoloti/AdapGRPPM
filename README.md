@@ -30,7 +30,7 @@ The codes used in this example are available [here](https://github.com/mbortolot
 The second example is 
 
 $$
-\min_{P} f_2(X):=g_1(X)+g_2(X)-h(X),
+\min_{X \in P^n_{++}} f_2(X):=g_1(X)+g_2(X)-h(X),
 $$
 
 where $g_1(X)= \alpha \texttt{tr}(X)$, $g_2(X) = \texttt{tr}(X^{-1}A) + \log(\det(X))-n$, and $h(X)=\texttt{tr}(BX)$.
@@ -41,7 +41,7 @@ The codes used in this example are available [here](https://github.com/mbortolot
 ### 6.2.3 Scalability with Manifold Dimension
 Next example is
 $$
-\min_{P} f_3(X) := g_1(X)+g_2(X)-h(X),
+\min_{X \in P^n_{++}} f_3(X) := g_1(X)+g_2(X)-h(X),
 $$
 
 where $g_1(X)=\frac{1}{12} \log(\det(X))^2$, $g_2(X)=\log(\det(X))^3$, and $h(X)=\log(\det(X))$.
@@ -52,7 +52,7 @@ The codes used in this example are available [here](https://github.com/mbortolot
 ### 6.2.4 Comparison with Baseline Methods
 The last example is
 $$
-\min_P f_4(X) := g_1(X)+g_2(X)-h(X),
+\min_P_{X \in P^n_{++}} f_4(X) := g_1(X)+g_2(X)-h(X),
 $$
 
 where $g_1(X)=\log(\det(X))^4$, $g_2(X)=0$, and $h(X)=\log(\det(X))^2$.
