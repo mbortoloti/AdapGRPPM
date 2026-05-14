@@ -10,7 +10,7 @@ using LaTeXStrings
 using DelimitedFiles
 using BenchmarkTools
 
-include("../solvers/adap_rppm_trm.jl")
+include("../solvers/adap_grppm_trm.jl")
 #include("ppmnn.jl")
 
 #NAME_STRING = "EX02_"
@@ -50,7 +50,7 @@ Mwarm = mf.SymmetricPositiveDefinite(2)
 Xwarm = rand(Mwarm)
 
 # Warmup adap-RPPM
-adap_rppm(
+adap_grppm(
     Mwarm,Xwarm,
     wg1,wgrad_g1,
     wg2,wgrad_g2,
@@ -117,7 +117,7 @@ for _ in 1:nguess
     maxiter = 1000
 
     ########################################################################
-    #                      Adap-RPPM analysis
+    #                      Adap-GRPPM analysis
     ########################################################################
 
     try
@@ -126,7 +126,7 @@ for _ in 1:nguess
         println("Adap-GR-PPM n: $n")
 
 
-        bench = @benchmark adap_rppm(
+        bench = @benchmark adap_grppm(
             $M,$X0,
             $g1,$grad_g1,
             $g2,$grad_g2,
