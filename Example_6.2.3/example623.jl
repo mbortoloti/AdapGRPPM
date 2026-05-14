@@ -197,7 +197,7 @@ p1 = plot(
     label = "Adap-GR-PPM",
     xlabel = "Manifold Dimension " * L"d = \mathrm{dim}\,\mathbb{P}_{++}^{n}",
     ylabel = "runtime (sec.)",
-    title = "Runtime Analysis",
+   # title = "Runtime Analysis",
     legend = :topleft
 )
 
