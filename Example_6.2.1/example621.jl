@@ -72,7 +72,7 @@ M2 = Manifolds.Oblique(n,p)
 λ0 = 100.0;
 
 # Adap-GR-PPM solver
-S = adap_rppm(M2,X0,g1,grad_g1,g2,grad_g2,h,grad_h,λ0,maxiter,tol);
+S = adap_grppm(M2,X0,g1,grad_g1,g2,grad_g2,h,grad_h,λ0,maxiter,tol);
 
 
 

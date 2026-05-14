@@ -5,7 +5,7 @@ using LinearAlgebra, Manifolds, Random
 using Plots,LaTeXStrings
 
 include("../solvers/rpg.jl")
-include("../solvers/adap_rppm_sgm.jl")
+include("../solvers/adap_grppm_sgm.jl")
 
 
 seed = MersenneTwister(1234)
@@ -84,7 +84,7 @@ for i in 1:size(Set_tol,1)
 λ0 = 10.0;
 
 # Adap-GR-PPM solver
-local S = adap_rppm(M2,X0,g1,grad_g1,g2,grad_g2,h,grad_h,λ0,maxiter,tol);
+local S = adap_grppm(M2,X0,g1,grad_g1,g2,grad_g2,h,grad_h,λ0,maxiter,tol);
 #println("S=$(S[3])")
 push!(iter_adap_gr_ppm,S[3])
 
