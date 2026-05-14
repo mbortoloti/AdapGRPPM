@@ -96,6 +96,19 @@ function MPGWH_solver(
         end
 
         Y = Manifolds.retract(M, X, α * η)
+
+        dist_XY = Manifolds.distance(M,X,Y)
+
+        if dist_XY < tol
+            @printf(
+                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%e\n",
+                iter, dist_XY, fY
+            )
+
+
+            return X, iter, Base.time() - t0, fX, err, fs
+        end
+
         fY = f(M, Y, A, Dsq, λ)
 
         
@@ -107,19 +120,18 @@ function MPGWH_solver(
 
         if iter % 500 == 0
             @printf(
-                "iter:%d, f:%e\n",
-                iter, fY
+                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%e\n",
+                iter, dist_XY, fY
             )
         end
 
         X = Y
         fX = fY
     end
-
-    @printf(
-        "iter:%d, f:%e\n",
-        iter, fX
-    )
+   @printf(
+                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%e\n",
+                iter, dist_XY, fY
+            )
 
     return X, iter, Base.time() - t0, fX, err, fs
 end
