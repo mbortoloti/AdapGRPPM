@@ -7,7 +7,7 @@ using Plots
 using Random
 using LaTeXStrings
 
-include("../solvers/adap_rppm_trm.jl")
+include("../solvers/adap_grppm_trm.jl")
 
 
 ##################################################################################################
@@ -60,27 +60,27 @@ maxiter = 1000
 # λ0 analysis 
 
 λ0 = λ[1]
-S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
+S = adap_grppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
               return_state=true);
     push!(cost_adap,S)
 
 λ0 = λ[2]
-S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
+S = adap_grppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
               return_state=true);
     push!(cost_adap,S)
 
 λ0 =λ[3] 
-S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
+S = adap_grppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
               return_state=true);
     push!(cost_adap,S)
 
 λ0 = λ[4]
-S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
+S = adap_grppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
               return_state=true);
     push!(cost_adap,S)
 
 λ0 =λ[5] 
-S = adap_rppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
+S = adap_grppm(M,X0,g1,grad_g1,g2,grad_g2,h,∂h,λ0,maxiter,ϵ;
               return_state=true);
     push!(cost_adap,S)
 

@@ -10,7 +10,7 @@ using LaTeXStrings
 using DelimitedFiles
 using Statistics
 
-include("../solvers/adap_rppm_trm.jl")
+include("../solvers/adap_grppm_trm.jl")
 
 ################################################################################
 # Configuration
@@ -86,7 +86,7 @@ function run_experiment()
 
             try
 
-                S,error,iter,λk = adap_rppm(
+                S,error,iter,λk = adap_grppm(
                     M,
                     X0,
                     g1,
@@ -104,7 +104,7 @@ function run_experiment()
                 # Benchmark
                 ################################################################
 
-                bench = @benchmark adap_rppm(
+                bench = @benchmark adap_grppm(
                     $M,
                     copy($X0),
                     $g1,

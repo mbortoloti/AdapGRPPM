@@ -20,7 +20,7 @@ end
 #end
 
 ###########################################################################################################
-function adap_rppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Function, grad_g1 :: Function, 
+function adap_grppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Function, grad_g1 :: Function, 
         g2 :: Function, grad_g2 :: Function, h :: Function, grad_h :: Function, λ0 :: Float64,
         maxiter :: Int,ϵ :: Float64;return_state = false)
 
