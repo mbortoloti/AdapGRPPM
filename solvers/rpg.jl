@@ -97,7 +97,10 @@ function MPGWH_solver(
 
         Y = Manifolds.retract(M, X, α * η)
 
-        dist_XY = Manifolds.distance(M,X,Y)
+        global dist_XY = Manifolds.distance(M,X,Y)
+       
+        global fY = f(M, Y, A, Dsq, λ)
+    
 
         if dist_XY < tol
             @printf(
@@ -106,11 +109,10 @@ function MPGWH_solver(
             )
 
 
-            return X, iter, Base.time() - t0, fX, err, fs
+            return X, iter, Base.time() - t0, fX, err, fs, dist_XY
         end
 
-        fY = f(M, Y, A, Dsq, λ)
-
+       
         
         #err = norm(α * η * L)^2
 
@@ -133,13 +135,13 @@ function MPGWH_solver(
                 iter, dist_XY, fY
             )
 
-    return X, iter, Base.time() - t0, fX, err, fs
+    return X, iter, Base.time() - t0, fX, err, fs, dist_XY
 end
 
 
 function Driver_MPGWH(X0, A, Dsq, λ, L, tol, maxiter)
 
-    Xopt, iter, etime, fv, err, fs =
+    Xopt, iter, etime, fv, err, fs, distXY =
         MPGWH_solver(X0, A, Dsq, λ, L, tol, maxiter)
 
     sparsity = count(x -> x == 0.0, Xopt) / length(Xopt)
@@ -147,5 +149,5 @@ function Driver_MPGWH(X0, A, Dsq, λ, L, tol, maxiter)
     Q, R = qr(A * Xopt)
     avar = tr(R' * R)
 
-    return Xopt, iter, etime, fv, err, sparsity, avar, fs
+    return Xopt, iter, etime, fv, err, sparsity, avar, fs, distXY
 end

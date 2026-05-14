@@ -152,7 +152,7 @@ function adap_rppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Functi
                     if return_state
                         return cost
                     else
-                        return Yk,0,iter,λk,cost
+                        return Yk,0,iter,λk,cost,dist_Xk_Yk
                     end
                 end
 
@@ -182,7 +182,7 @@ function adap_rppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Functi
         
     end
     
-    return Xk,-1,iter,λk,cost
+    return Xk,-1,maxiter,λk,cost,dist_Xk_Yk
 
     
 end

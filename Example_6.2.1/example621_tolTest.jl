@@ -40,7 +40,7 @@ L = norm(Dsq)^2;
 Set_tol = [1.e-1,1.e-2,1.e-3,1.e-4,1.e-5,1.e-6,1.e-7,1.e-8]
 
 #tol = 1e-8
-maxiter = 10000
+maxiter = 100000
 
 # Initial guess on manifold
 M = Manifolds.PowerManifold(Sphere(n - 1), p)
@@ -66,21 +66,36 @@ grad_h(_,X) = 4.0*AtA*X*D2
 
 M2 = Manifolds.Oblique(n,p)
 
-tol = Set_tol[1]
+
+iter_adap_gr_ppm = []
+iter_rpg = []
+
+
+for i in 1:size(Set_tol,1)
+
+    tol = Set_tol[i]
 
 # RPG solver
-Xopt, iter, time, fv, err, sparsity, avar, fs =
-    Driver_MPGWH(X0, A, Dsq, λ, L, tol, maxiter);
-
+ R = Driver_MPGWH(X0, A, Dsq, λ, L, tol, maxiter);
+# println("R=$(R[2])")
+ push!(iter_rpg,R[2])
 
 # Set initial λ0
-λ0 = 100.0;
+λ0 = 10.0;
 
 # Adap-GR-PPM solver
-S = adap_rppm(M2,X0,g1,grad_g1,g2,grad_g2,h,grad_h,λ0,maxiter,tol);
+local S = adap_rppm(M2,X0,g1,grad_g1,g2,grad_g2,h,grad_h,λ0,maxiter,tol);
+#println("S=$(S[3])")
+push!(iter_adap_gr_ppm,S[3])
+
+end
 
 
+plot(Set_tol,iter_rpg,xlabel=L"$\texttt{dist}(X_k,X_{k+1})$",ylabel="Iterations",xscale=:log10,yscale=:log10,xticks=(Set_tol,Set_tol),yticks=([10,100,1000,10000,100000],[10,100,1000,10000,100000]),lw = 2,marker=:square,label="Whang-Wei Method")
+plot!(Set_tol,iter_adap_gr_ppm,xscale=:log10,yscale=:log10,xticks=(Set_tol,Set_tol),lw=2,marker=:circle,label="Adap-GR-PPM")
 
-plot(fs,xscale = :log10, yscale = :log10,xticks=([1,1e+1,1e+2,1e+3,1e+4],[1,10,100,1000,10000]),lw=2,marker= :square,label="Huang-Wei method",xlabel="Iterations",ylabel=L"$f_1(X^k)$")
-plot!(S[5],xscale = :log10, yscale = :log10,lw=2,marker=:circle,label="Adap-GR-PPM")
-savefig("example621l100.png")
+#plot(fs,xscale = :log10, yscale = :log10,xticks=([1,1e+1,1e+2,1e+3,1e+4],[1,10,100,1000,10000]),lw=2,marker= :square,label="Huang-Wei method",xlabel="Iterations",ylabel=L"$f_1(X^k)$")
+#plot!(S[5],xscale = :log10, yscale = :log10,lw=2,marker=:circle,label="Adap-GR-PPM")
+savefig("tol_test_L10.png")
+#
+
