@@ -5,7 +5,7 @@ using LinearAlgebra, Manifolds, Random
 using Plots,LaTeXStrings
 
 include("../solvers/rpg.jl")
-include("../solvers/adap_rppm_sgm.jl")
+include("../solvers/adap_grppm_sgm.jl")
 
 
 seed = MersenneTwister(1234)
