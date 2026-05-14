@@ -147,7 +147,7 @@ function adap_rppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Functi
 
                 if dist_Xk_Yk < ϵ
                     
-                    println("iter: ",iter,"  ","f: ",f_Yk,"   ","λk: ",λk)
+                    println("iter: ",iter,"  ","dist(Xk,Xk+1):",dist_Xk_Yk,"  ","f: ",f_Yk,"   ","λk: ",λk)
                     
                     if return_state
                         return cost

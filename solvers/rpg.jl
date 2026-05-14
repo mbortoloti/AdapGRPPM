@@ -101,7 +101,7 @@ function MPGWH_solver(
 
         if dist_XY < tol
             @printf(
-                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%e\n",
+                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%12.10f\n",
                 iter, dist_XY, fY
             )
 
@@ -120,7 +120,7 @@ function MPGWH_solver(
 
         if iter % 500 == 0
             @printf(
-                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%e\n",
+                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%12.10f\n",
                 iter, dist_XY, fY
             )
         end
@@ -129,7 +129,7 @@ function MPGWH_solver(
         fX = fY
     end
    @printf(
-                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%e\n",
+                    "iter:%d, dist(Xk,Xk+1):%15.10f  f:%12.10f\n",
                 iter, dist_XY, fY
             )
 
