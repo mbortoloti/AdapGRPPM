@@ -17,8 +17,7 @@ This solver is based on the adaptive proximal point framework proposed in:
 
 The implementation provided in this repository is intended to reproduce the numerical experiments and computational results presented in the paper.
 
-This particular implementation employs the subgradient method available in the Julia package as the internal subsolver.
-
+This particular implementation employs the subgradient method (available in the Julia package [Manopt.jl](https://manoptjl.org/)) as the internal subsolver, since we are specifically investigating a nonsmooth optimization setting.
 """
 
 
