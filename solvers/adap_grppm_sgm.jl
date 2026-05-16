@@ -1,6 +1,23 @@
-#
-# This is ...
-#
+"""
+    adap_grppm(...)
+
+Implementation of the adaptive GR-PPM solver for optimization problems on Hadamard manifolds of the form
+
+    min_{X ∈ M} g₁(X) + g₂(X) - h(X),
+
+where `M` is a Hadamard manifold, `g₁` is a proper and lower semicontinuous function, `g₂` is continuously diffewrentiable with a Lipschitz continuous gradient, and `h` convex.
+
+This solver is based on the adaptive proximal point framework proposed in:
+
+    Vitaliano S. Amaral,
+    Marcio Antônio de A. Bortoloti,
+    Jurandir O. Lopes,
+    Gilson N. Silva,
+    "An Adaptive Proximal Point Method for Nonsmooth and Nonconvex Optimization on Hadamard Manifolds".
+
+The implementation provided in this repository is intended to reproduce the numerical experiments and computational results presented in the paper.
+"""
+
 
 import Manifolds as mf
 import ManifoldDiff as md
