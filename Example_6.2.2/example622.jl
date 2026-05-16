@@ -1,3 +1,7 @@
+#
+# Code for Example 6.2.2
+#
+
 import Manifolds as mf
 import ManifoldDiff as md
 using Manopt
