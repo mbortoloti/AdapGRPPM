@@ -100,7 +100,7 @@ Xs = la.Diagonal([xs(i) for i in 1:n])
 plot([],[],
      label="",yticks=([1.e-14,1.e-12,1.e-10,1.e-8,1.e-6,1.e-4,1.e-2,1.e+0]),
      ylabel=L"\log\|f_2(x^k)-f_2(x^*)\|",
-     xlabel="Iteration",
+     xlabel="Iterations",
      guidefont= font(12),
      tickfont = font(12),
      legendfont = font(12));
