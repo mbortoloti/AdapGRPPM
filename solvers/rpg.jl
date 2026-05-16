@@ -1,3 +1,8 @@
+"""
+This is a Julia implementation of the code from Riemannian Proximal Gradient Methods by Wen Huang and Ke Wei, based on the original version made available at Wen Huang's official webpage.
+The implementation is included exclusively for comparison purposes with the results reported in Example 6.2.2 of the present study.
+"""
+
 using Manifolds
 using LinearAlgebra
 using Printf
