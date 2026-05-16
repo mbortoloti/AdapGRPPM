@@ -26,7 +26,6 @@ function grad_f(M, X, A, Dsq, λ)
     XtAtAXmD = AX' * AX - Diagonal(Dsq)
     Eg = 4.0 * A' * (AX * XtAtAXmD)
 
-    # projeção riemanniana automática
     return Manifolds.project(M, X, Eg)
 end
 
@@ -60,7 +59,6 @@ function MPGWH_solver(
     err = Inf
     fs = Float64[]
 
-    # valor inicial
     fX = f(M, X, A, Dsq, λ)
     push!(fs, fX)
 
@@ -71,14 +69,12 @@ function MPGWH_solver(
 
     while iter < maxiter #&& err > tol
 
-        # Riemannian gradient
         G = grad_f(M, X, A, Dsq, λ)
 
         Z = prox_l1_columns(X - G / L, λ / L)
 
         η = Manifolds.project(M, X, Z - X)
 
-        # busca linear tipo Armijo
         α = 1.0
         btiter = 0
 
@@ -96,7 +92,6 @@ function MPGWH_solver(
         end
 
         if btiter == maxbtiter
-            # opcional: warning
             @printf("warning: max backtracking reached\n")
         end
 
@@ -119,7 +114,6 @@ function MPGWH_solver(
 
        
         
-        #err = norm(α * η * L)^2
 
         err = norm(α * η)^2
         iter += 1
