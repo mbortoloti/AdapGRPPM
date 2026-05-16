@@ -6,7 +6,7 @@
 
 
 **Abstract** 
-This paper addresses a class of nonsmooth and nonconvex optimization problems defined on Hadamard manifolds. \rev{The objective function has a composite structure, consisting of convex, differentiable, and lower semicontinuous terms. This formulation may lead to a globally nonconvex problem and encompasses, but is not limited to, the classical difference-of-convex (DC) framework, by allowing more general decompositions beyond the difference of two convex functions.}
+This paper addresses a class of nonsmooth and nonconvex optimization problems defined on Hadamard manifolds. The objective function has a composite structure, consisting of convex, differentiable, and lower semicontinuous terms. This formulation may lead to a globally nonconvex problem and encompasses, but is not limited to, the classical difference-of-convex (DC) framework, by allowing more general decompositions beyond the difference of two convex functions.
 Motivated by recent advances in proximal point methods in Euclidean and Riemannian settings, we propose two variants: one that uses the Lipschitz constant of the gradient of the smooth part, suitable when this parameter is accessible, and another that does not require such knowledge, thereby broadening its applicability. We analyze the complexity of both approaches, establish their convergence properties, and illustrate their effectiveness through numerical experiments.
 
 ### 6.2.1 Sparse Orthogonal Basis Recovery on the $OB(p,n)$ Manifold
