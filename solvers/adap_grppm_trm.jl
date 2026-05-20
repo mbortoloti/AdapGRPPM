@@ -77,7 +77,7 @@ function adap_grppm(M :: mf.AbstractManifold, X0 :: Matrix{Float64}, g1 :: Funct
    
                 # Solving subproblem
                 Yk = Manopt.trust_regions(M, fk, grad_fk, Zk;
-                     stopping_criterion=StopAfterIteration(5000)|StopWhenChangeLess(M,1e-12)
+                     stopping_criterion=StopAfterIteration(50)|StopWhenChangeLess(M,1e-12)
                      );
             
                 global dist_Xk_Yk = mf.distance(M,Xk,Yk)
