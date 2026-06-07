@@ -69,13 +69,13 @@ grad_h(_,X) = 4.0*AtA*X*D2
 M2 = Manifolds.Oblique(n,p)
 
 # Set initial λ0
-λ0 = 100.0;
+λ0 = 10.0;
 
 # Adap-GR-PPM solver
 S = adap_grppm(M2,X0,g1,grad_g1,g2,grad_g2,h,grad_h,λ0,maxiter,tol);
 
 
 
-plot(fs,xscale = :log10, yscale = :log10,xticks=([1,1e+1,1e+2,1e+3,1e+4],[1,10,100,1000,10000]),lw=2,marker= :square,label="Huang-Wei method",xlabel="Iterations",ylabel=L"$f_1(X^k)$")
-plot!(S[5],xscale = :log10, yscale = :log10,lw=2,marker=:circle,label="Adap-GR-PPM")
-savefig("example621l100.png")
+plot(fs,xscale = :log10, yscale = :log10,xticks=([1,1e+1,1e+2,1e+3,1e+4],[1,10,100,1000,10000]),lw=2,label="Huang-Wei method",xlabel="Iterations",ylabel=L"$f_1(X^k)$")
+plot!(S[5],xscale = :log10, yscale = :log10,lw=2,label="Adap-GR-PPM")
+savefig("example621l10.png")
